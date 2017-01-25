@@ -33,9 +33,8 @@ class Social_Links_Widget extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		// outputs the options form on admin
-		?>
-			Test Backend form
-		<?php
+		// call form function
+		$this->getForm($instance);
 	}
 
 	/**
@@ -46,5 +45,140 @@ class Social_Links_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		// processes widget options to be saved
+	}
+
+	/**
+	 * Gets and displays form
+	 */
+	public function getForm( $instance ) {
+
+		// Get Facebook Link
+		if(isset($instance['facebook_link'])) {
+			$facebook_link = esc_attr($instance['facebook_link']);
+		} else {
+			$facebook_link = 'https://www.facebook.com';
+		}
+
+		// Get Twitter Link
+		if(isset($instance['twitter_link'])) {
+			$twitter_link = esc_attr($instance['twitter_link']);
+		} else {
+			$twitter_link = 'https://www.twitter.com';
+		}
+
+		// Get LinkedIn Link
+		if(isset($instance['linkedin_link'])) {
+			$linkedin_link = esc_attr($instance['linkedin_link']);
+		} else {
+			$linkedin_link = 'https://www.linkedin.com';
+		}
+
+		// Get Google+ Link
+		if(isset($instance['googleplus_link'])) {
+			$googleplus_link = esc_attr($instance['googleplus_link']);
+		} else {
+			$googleplus_link = 'https://plus.google.com';
+		}
+
+		// ICONS
+
+		// Get Facebook Icon
+		if(isset($instance['facebook_icon'])) {
+			$facebook_icon = esc_attr($instance['facebook_icon']);
+		} else {
+			$facebook_icon = plugins_url() . 'social-links/img/facebook.png';
+		}
+
+		// Get Twitter Icon
+		if(isset($instance['twitter_icon'])) {
+			$twitter_icon = esc_attr($instance['twitter_icon']);
+		} else {
+			$twitter_icon = plugins_url() . 'social-links/img/twitter.png';
+		}
+
+		// Get LinkedIn Icon
+		if(isset($instance['linkedin_icon'])) {
+			$linkedin_icon = esc_attr($instance['linkedin_icon']);
+		} else {
+			$linkedin_icon = plugins_url() . 'social-links/img/linkedin.png';
+		}
+
+		// Get Google+ Link
+		if(isset($instance['googleplus_icon'])) {
+			$googleplus_icon = esc_attr($instance['googleplus_icon']);
+		} else {
+			$googleplus_icon = plugins_url() . 'social-links/img/google.png';
+		}
+
+		// Get Icon Size
+		if(isset($instance['icon_width'])) {
+			$icon_width = esc_attr($instance['icon_width']);
+		} else {
+			$icon_width = 32;
+		}
+
+		?>
+			<h4>Facebook</h4>
+			<p>
+				<label for="<?php echo $this->get_field_id('facebook_link'); ?>">
+					<?php _e('Link'); ?>
+				</label>
+				<input type="text" class="widefat" id="<?php echo $this->get_field_id('facebook_link'); ?>" name="<?php echo $this->get_field_name('facebook_link'); ?>" value="<?php echo esc_attr($facebook_link); ?>">
+			</p>
+			<p>
+				<label for="<?php echo $this->get_field_id('facebook_icon'); ?>">
+					<?php _e('Icon'); ?>
+				</label>
+				<input type="text" class="widefat" id="<?php echo $this->get_field_id('facebook_icon'); ?>" name="<?php echo $this->get_field_name('facebook_icon'); ?>" value="<?php echo esc_attr($facebook_icon); ?>">
+			</p>
+
+			<h4>Twitter</h4>
+			<p>
+				<label for="<?php echo $this->get_field_id('twitter_link'); ?>">
+					<?php _e('Link'); ?>
+				</label>
+				<input type="text" class="widefat" id="<?php echo $this->get_field_id('twitter_link'); ?>" name="<?php echo $this->get_field_name('twitter_link'); ?>" value="<?php echo esc_attr($twitter_link); ?>">
+			</p>
+			<p>
+				<label for="<?php echo $this->get_field_id('twitter_icon'); ?>">
+					<?php _e('Icon'); ?>
+				</label>
+				<input type="text" class="widefat" id="<?php echo $this->get_field_id('twitter_icon'); ?>" name="<?php echo $this->get_field_name('twitter_icon'); ?>" value="<?php echo esc_attr($twitter_icon); ?>">
+			</p>
+
+			<h4>LinkedIn</h4>
+			<p>
+				<label for="<?php echo $this->get_field_id('linkedin_link'); ?>">
+					<?php _e('Link'); ?>
+				</label>
+				<input type="text" class="widefat" id="<?php echo $this->get_field_id('linkedin_link'); ?>" name="<?php echo $this->get_field_name('linkedin_link'); ?>" value="<?php echo esc_attr($linkedin_link); ?>">
+			</p>
+			<p>
+				<label for="<?php echo $this->get_field_id('linkedin_icon'); ?>">
+					<?php _e('Icon'); ?>
+				</label>
+				<input type="text" class="widefat" id="<?php echo $this->get_field_id('linkedin_icon'); ?>" name="<?php echo $this->get_field_name('linkedin_icon'); ?>" value="<?php echo esc_attr($linkedin_icon); ?>">
+			</p>
+
+			<h4>Google+</h4>
+			<p>
+				<label for="<?php echo $this->get_field_id('googleplus_link'); ?>">
+					<?php _e('Link'); ?>
+				</label>
+				<input type="text" class="widefat" id="<?php echo $this->get_field_id('googleplus_link'); ?>" name="<?php echo $this->get_field_name('googleplus_link'); ?>" value="<?php echo esc_attr($googleplus_link); ?>">
+			</p>
+			<p>
+				<label for="<?php echo $this->get_field_id('googleplus_icon'); ?>">
+					<?php _e('Icon'); ?>
+				</label>
+				<input type="text" class="widefat" id="<?php echo $this->get_field_id('googleplus_icon'); ?>" name="<?php echo $this->get_field_name('googleplus_icon'); ?>" value="<?php echo esc_attr($googleplus_icon); ?>">
+			</p>
+			<p>
+				<label for="<?php echo $this->get_field_id('icon_width'); ?>">
+					<?php _e('Icons Width'); ?>
+				</label>
+				<input type="text" class="widefat" id="<?php echo $this->get_field_id('icon_width'); ?>" name="<?php echo $this->get_field_name('icon_width'); ?>" value="<?php echo esc_attr($icon_width); ?>">
+			</p>
+		<?php
 	}
 }
