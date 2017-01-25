@@ -21,9 +21,28 @@ class Social_Links_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		// outputs the content of the widget
-		?>
-		Test from frontend
-		<?php
+		// get links
+		$links = array(
+			'facebook' => esc_attr($instance['facebook_link']),
+			'twitter' => esc_attr($instance['twitter_link']),
+			'linkedin' => esc_attr($instance['linkedin_link']),
+			'googleplus' => esc_attr($instance['googleplus_link'])
+		);
+		// get icons
+		$icons = array(
+			'facebook' => esc_attr($instance['facebook_icon']),
+			'twitter' => esc_attr($instance['twitter_icon']),
+			'linkedin' => esc_attr($instance['linkedin_icon']),
+			'googleplus' => esc_attr($instance['googleplus_icon'])
+		);
+		$icon_width = esc_attr($instance['icon_width']);
+
+		echo $args['before_widget'];
+
+		// Call Frontend function
+		$this->getSocialLinks($links, $icons, $icon_width);
+
+		echo $args['after_widget'];
 	}
 
 	/**
@@ -62,6 +81,7 @@ class Social_Links_Widget extends WP_Widget {
 
 	/**
 	 * Gets and displays form
+	 * @param array $instance The widget options
 	 */
 	public function getForm( $instance ) {
 
@@ -99,28 +119,28 @@ class Social_Links_Widget extends WP_Widget {
 		if(isset($instance['facebook_icon'])) {
 			$facebook_icon = esc_attr($instance['facebook_icon']);
 		} else {
-			$facebook_icon = plugins_url() . 'social-links/img/facebook.png';
+			$facebook_icon = plugins_url() . '/social-links/img/facebook.png';
 		}
 
 		// Get Twitter Icon
 		if(isset($instance['twitter_icon'])) {
 			$twitter_icon = esc_attr($instance['twitter_icon']);
 		} else {
-			$twitter_icon = plugins_url() . 'social-links/img/twitter.png';
+			$twitter_icon = plugins_url() . '/social-links/img/twitter.png';
 		}
 
 		// Get LinkedIn Icon
 		if(isset($instance['linkedin_icon'])) {
 			$linkedin_icon = esc_attr($instance['linkedin_icon']);
 		} else {
-			$linkedin_icon = plugins_url() . 'social-links/img/linkedin.png';
+			$linkedin_icon = plugins_url() . '/social-links/img/linkedin.png';
 		}
 
 		// Get Google+ Link
 		if(isset($instance['googleplus_icon'])) {
 			$googleplus_icon = esc_attr($instance['googleplus_icon']);
 		} else {
-			$googleplus_icon = plugins_url() . 'social-links/img/google.png';
+			$googleplus_icon = plugins_url() . '/social-links/img/google.png';
 		}
 
 		// Get Icon Size
@@ -192,6 +212,38 @@ class Social_Links_Widget extends WP_Widget {
 				</label>
 				<input type="text" class="widefat" id="<?php echo $this->get_field_id('icon_width'); ?>" name="<?php echo $this->get_field_name('icon_width'); ?>" value="<?php echo esc_attr($icon_width); ?>">
 			</p>
+		<?php
+	}
+
+	/**
+	 * Gets and displays Social Icons
+	 * @param array $links Social links
+	 * @param array $icons Social icons
+	 * @param int $icon_width The width of an icon in px
+	 */
+	public function getSocialLinks( $links, $icons, $icon_width ) {
+		?>
+			<div class="social-links">
+				<a target="_blank" href="<?php echo esc_attr($links['facebook']); ?>">
+					<img src="<?php echo esc_attr($icons['facebook']); ?>" alt="Facebook" width="<?php echo esc_attr($icon_width); ?>">
+				</a>
+			</div>
+			<div class="social-links">
+				<a target="_blank" href="<?php echo esc_attr($links['twitter']); ?>">
+					<img src="<?php echo esc_attr($icons['twitter']); ?>" alt="Twitter" width="<?php echo esc_attr($icon_width); ?>">
+				</a>
+			</div>
+			<div class="social-links">
+				<a target="_blank" href="<?php echo esc_attr($links['linkedin']); ?>">
+					<img src="<?php echo esc_attr($icons['linkedin']); ?>" alt="LinkedIn" width="<?php echo esc_attr($icon_width); ?>">
+				</a>
+			</div>
+			<div class="social-links">
+				<a target="_blank" href="<?php echo esc_attr($links['googleplus']); ?>">
+					<img src="<?php echo esc_attr($icons['googleplus']); ?>" alt="Google+" width="<?php echo esc_attr($icon_width); ?>">
+				</a>
+			</div>
+
 		<?php
 	}
 }

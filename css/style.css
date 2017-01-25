@@ -1,0 +1,11 @@
+.social-links {
+    float: left;
+    padding-right: 5px;
+}
+.social-links img {
+    opacity: 0.5;
+    transition: opacity 0.7s;
+}
+.social-links img:hover {
+    opacity: 1;
+}
